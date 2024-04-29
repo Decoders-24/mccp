@@ -1,0 +1,52 @@
+// Count subarrays having sum of elements at even and odd positions equal
+// Given an array arr[] of integers, the task is to find the total count of subarrays such that the sum of elements at even position and sum of elements at the odd positions are equal.
+
+// Examples:
+// Input: arr[] = {1, 2, 3, 4, 1}
+// Output: 1
+// Explanation: 
+// {3, 4, 1} is the only subarray in which sum of elements at even position {3, 1} = sum of element at odd position {4}
+
+// Input: arr[] = {2, 4, 6, 4, 2}
+// Output: 2
+// Explanation: 
+// There are two subarrays {2, 4, 6, 4} and {4, 6, 4, 2}.
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+int countSubarraysWithEqualSum(vector<int>& arr) {
+    unordered_map<int, int> oddSumFreq, evenSumFreq;
+    int oddSum = 0, evenSum = 0, count = 0;
+
+    evenSumFreq[0] = 1; // Initially, sum at even position is 0
+    for (int i = 0; i < arr.size(); i++) {
+        if (i % 2 == 0) {
+            evenSum += arr[i];
+            evenSumFreq[evenSum]++;
+        } else {
+            oddSum += arr[i];
+            oddSumFreq[oddSum]++;
+        }
+        // Count subarrays where sum at even and odd positions are equal
+        count += evenSumFreq[evenSum] + oddSumFreq[oddSum] - 2;
+    }
+
+    return count;
+}
+
+int main() {
+    int n;
+    cout << "Enter the size of the array: ";
+    cin >> n;
+    vector<int> arr(n);
+    cout << "Enter the elements of the array: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "Output: " << countSubarraysWithEqualSum(arr) << endl;
+
+    return 0;
+}

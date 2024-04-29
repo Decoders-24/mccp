@@ -1,0 +1,113 @@
+import java.util.*;
+
+public class LinkedListOperations {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Node head = null;
+        int choice;
+        do {
+            System.out.println("Operations on LinkedList:");
+            System.out.println("1. Insert at beginning");
+            System.out.println("2. Insert at end");
+            System.out.println("3. Insert at position");
+            System.out.println("4. Delete at position");
+            System.out.println("5. Display");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            switch(choice) {
+                case 1:
+                    System.out.print("Enter element to insert at beginning: ");
+                    int ele = sc.nextInt();
+                    head = insertAtBeginning(head, ele);
+                    break;
+                case 2:
+                    System.out.print("Enter element to insert at end: ");
+                    ele = sc.nextInt();
+                    head = insertAtEnd(head, ele);
+                    break;
+                case 3:
+                    System.out.print("Enter element to insert: ");
+                    ele = sc.nextInt();
+                    System.out.print("Enter position: ");
+                    int pos = sc.nextInt();
+                    head = insertAtPosition(head, ele, pos);
+                    break;
+                case 4:
+                    System.out.print("Enter position to delete: ");
+                    pos = sc.nextInt();
+                    head = deleteAtPosition(head, pos);
+                    break;
+                case 5:
+                    display(head);
+                    break;
+                case 6:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice");
+            }
+        } while(choice!=6);
+    }
+
+    static Node insertAtBeginning(Node head, int ele) {
+        if(head==null) {
+            head = new Node(ele);
+            return head;
+        } else {
+            Node p = new Node(ele);
+            p.next = head;
+            return p;
+        }
+    }
+
+    static Node insertAtEnd(Node head, int ele) {
+        if(head==null) {
+            head = new Node(ele);
+            return head;
+        } else {
+            Node p = new Node(ele);
+            Node curr = head;
+
+            while(curr.next!=null) {
+                curr = curr.next;
+            }
+            curr.next = p;
+            return head;
+        }
+    }
+
+    static Node insertAtPosition(Node head, int ele, int pos) {
+        Node curr = head;
+        Node p = new Node(ele);
+        for(int i=1; i<pos-1; i++) {
+            curr = curr.next;
+        }
+
+        p.next = curr.next;
+        curr.next = p;
+
+        return head;
+    }
+
+    static Node deleteAtPosition(Node head, int pos) {
+        Node prev = head;
+        Node curr = head.next;
+
+        for(int i=1; i<pos-1; i++) {
+            prev = curr;
+            curr = curr.next;
+        }
+
+        prev.next=curr.next;
+        return head;
+    }
+
+    static void display(Node head) {
+        while(head!=null) {
+            System.out.print(head.data + "->");
+            head = head.next;
+        }
+        System.out.println();
+    }
+
+}

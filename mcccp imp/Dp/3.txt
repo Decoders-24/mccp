@@ -1,0 +1,241 @@
+Tue, wed open compiler probs sir:
+open compiler: Tue, Wed
+
+
+1)
+    public static int edit(String s1,String s2) {
+        int m=s1.length();
+        int n=s2.length();
+        int dp[][]=new int[m+1][n+1];
+        for(int i=0;i<=m;i++)
+            dp[i][0]=0;
+        for(int i=0;i<=n;i++)
+            dp[0][i]=0;
+        for(int i=1;i<=m;i++) {
+            for(int j=1;j<=n;j++) {
+                if(s1.charAt(i-1)==s2.charAt(j-1))
+                  dp[i][j]=dp[i-1][j-1];
+                else
+                   dp[i][j]=1+Math.min(dp[i-1][j-1],Math.min(dp[i-1][j],dp[i][j-1]));
+            }
+        }
+        return dp[m][n];
+    }
+
+
+2)
+    public static int edit(String s1,String s2,int m,int n) {
+        if(m==0)
+          return n;
+        if(n==0)
+          return m;
+        if(s1.charAt(m-1)==s2.charAt(n-1))
+          return edit(s1,s2,m-1,n-1);
+        return 1+Math.min(edit(s1,s2,m-1,n-1),Math.min(edit(s1,s2,m-1,n),edit(s1,s2,m,n-1)));
+    }
+
+3)
+    public static int kadane(int a[],int n) {
+        int max=a[0];
+        int cmax=a[0];
+        for(int i=1;i<n;i++) {
+            cmax=Math.max(a[i],a[i]+cmax);
+            max=Math.max(max,cmax);
+        }
+        return max;
+    }
+
+4)
+    public static int knapsack(int n,int p[],int w[],int c) {
+        int k[][]=new int[n+1][c+1];
+        for(int i=0;i<=n;i++)
+           k[i][0]=0;
+        for(int i=0;i<=c;i++)
+           k[0][i]=0;
+        for(int i=1;i<=n;i++) {
+            for(int j=1;j<=c;j++) {
+                if(w[i-1]<=j) {
+                    k[i][j]=Math.max(p[i-1]+k[i-1][j-w[i-1]],k[i-1][j]);
+                }
+                else
+                   k[i][j]=k[i-1][j];
+            }
+        }
+        return k[n][c];
+    }
+
+5)
+    public static int minimize(int n) {
+        int[] dp = new int[n + 1]; 
+  
+        dp[1] = 0; 
+  
+        for (int i = 2; i <= n; i++) { 
+            int min = dp[i - 1]; 
+  
+            if (i % 2 == 0) { 
+                min = Math.min(min, dp[i / 2]); 
+            } 
+            if (i % 3 == 0) { 
+                min = Math.min(min, dp[i / 3]); 
+            } 
+            dp[i] = min + 1; 
+        } 
+        return dp[n]; 
+    }
+
+6)
+    public static int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int n = nums.length;
+        int[] dp = new int[n];
+        dp[0] = 1; 
+        int maxLIS = 1;
+
+        for (int i = 1; i < n; i++) {
+            dp[i] = 1; 
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+
+            maxLIS = Math.max(maxLIS, dp[i]);
+        }
+
+        return maxLIS;
+    }
+
+1)
+    static int min(int x, int y, int z) {
+        if (x <= y && x <= z)
+            return x;
+        if (y <= x && y <= z)
+            return y;
+        else
+            return z;
+    }
+    static int editDist(String str1, String str2) {
+        int m = str1.length();
+        int n = str2.length();
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0)
+                    dp[i][j] = j;
+                else if (j == 0)
+                    dp[i][j] = i;
+                else if (str1.charAt(i - 1) == str2.charAt(j - 1))
+                    dp[i][j] = dp[i - 1][j - 1];
+                else
+                    dp[i][j] = 1 + min(dp[i][j - 1], 
+                            dp[i - 1][j], 
+                            dp[i - 1][j - 1]); 
+            }
+        }
+
+        return dp[m][n];
+    }
+
+2)
+    static int min(int x, int y, int z) {
+        if (x <= y && x <= z)
+            return x;
+        if (y <= x && y <= z)
+            return y;
+        else
+            return z;
+    }
+    static int editDist(String str1, String str2, int m, int n) {
+        if (m == 0)
+            return n;
+        if (n == 0)
+            return m;
+        if (str1.charAt(m - 1) == str2.charAt(n - 1))
+            return editDist(str1, str2, m - 1, n - 1);
+        return 1
+                + min(editDist(str1, str2, m, n - 1), // Insert
+                editDist(str1, str2, m - 1, n), // Remove
+                editDist(str1, str2, m - 1, n - 1) // Replace
+        );
+    }
+   
+3)
+    static int maxSubArraySum(int a[]) {
+        int size = a.length;
+        int max_so_far = Integer.MIN_VALUE, max_ending_here = 0;
+
+        for (int i = 0; i < size; i++) {
+            max_ending_here = max_ending_here + a[i];
+            if (max_so_far < max_ending_here)
+                max_so_far = max_ending_here;
+            if (max_ending_here < 0)
+                max_ending_here = 0;
+        }
+        return max_so_far;
+    }
+
+4)
+    static int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+    static int knapSack(int W, int wt[], int val[], int n) {
+        if (n == 0 || W == 0)
+            return 0;
+        if (wt[n - 1] > W)
+            return knapSack(W, wt, val, n - 1);
+        else
+            return max(val[n - 1] + knapSack(W - wt[n - 1], wt, val, n - 1),
+                    knapSack(W, wt, val, n - 1));
+    }
+
+5)
+    static int getMinSteps(int n, int memo[]) {
+        if (n == 0 || n==1)
+            return 0;
+            if(n==2 || n==3)
+            return 1;
+        if (memo[n] != -1)
+            return memo[n];
+        int res = getMinSteps(n - 1, memo);
+
+        if (n % 2 == 0)
+            res = Math.min(res,
+                    getMinSteps(n / 2, memo));
+        if (n % 3 == 0)
+            res = Math.min(res,
+                    getMinSteps(n / 3, memo));
+        memo[n] = 1 + res;
+        return memo[n];
+    }
+    static int getMinSteps(int n) {
+        int memo[] = new int[n + 1];
+        for (int i = 0; i <= n; i++)
+            memo[i] = -1;
+        return getMinSteps(n, memo);
+    }
+  
+6)
+    static int max_ref;
+    static int _lis(int arr[], int n) {
+        if (n == 1)
+            return 1;
+        int res, max_ending_here = 1;
+        for (int i = 1; i < n; i++) {
+            res = _lis(arr, i);
+            if (arr[i - 1] < arr[n - 1]
+                    && res + 1 > max_ending_here)
+                max_ending_here = res + 1;
+        }
+        if (max_ref < max_ending_here)
+            max_ref = max_ending_here;
+        return max_ending_here;
+    }
+    static int lis(int arr[], int n) {
+        max_ref = 1;
+        _lis(arr, n);
+        return max_ref;
+    }

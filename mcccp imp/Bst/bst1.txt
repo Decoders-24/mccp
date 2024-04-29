@@ -1,0 +1,222 @@
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) {
+        this.val = x;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+public class menu {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        TreeNode root = null;
+        int ch;
+        do {
+            System.out.println("Menu:");
+            System.out.println("1. Insert");
+            System.out.println("2. Delete");
+            System.out.println("3. Traversal");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            ch = sc.nextInt();
+            switch(ch) {
+                case 1:
+                    System.out.println("1. Insert using recursion");
+                    System.out.println("2. Insert without recursion");
+                    int ch1 = sc.nextInt();
+                    switch(ch1) {
+                        case 1:
+                            System.out.print("Enter the value to be inserted: ");
+                            int val = sc.nextInt();
+                            root = insertWithRecursion(root, val);
+                            break;
+                        case 2:
+                            System.out.print("Enter the value to be inserted: ");
+                            int val2 = sc.nextInt();
+                            root = insertWithoutRecursion(root, val2);
+                            break;
+                        default:
+                            System.out.println("Invalid choice");
+                    }
+                    break;
+                case 2:
+                    System.out.print("Enter the value to be deleted: ");
+                    int val1 = sc.nextInt();
+                    root = delete(root, val1);
+                    break;
+                case 3:
+                    System.out.println("1. Inorder Traversal");
+                    System.out.println("2. Preorder Traversal");
+                    System.out.println("3. Postorder Traversal");
+                    int ch3 = sc.nextInt();
+                    switch(ch3) {
+                        case 1:
+                            inorder(root);
+                            break;
+                        case 2:
+                            preorder(root);
+                            break;
+                        case 3:
+                            postorder(root);
+                            break;
+                        default:
+                            System.out.println("Invalid choice");
+                    }
+                    break;
+                case 4:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        } while(ch!=4);
+    }
+
+    public static TreeNode insertWithoutRecursion(TreeNode root, int val) {
+        if(root == null) {
+            TreeNode t = new TreeNode(val);
+            return t;
+        }
+        TreeNode parent = null;
+        TreeNode curr = root;
+        while(curr!=null) {
+            if(val < curr.val) {
+                parent = curr;
+                curr = curr.left;
+            } else {
+                parent = curr;
+                curr = curr.right;
+            }
+        }
+        if(val < parent.val)
+            parent.left = new TreeNode(val);
+        else
+            parent.right = new TreeNode(val);
+        
+        return root;
+    }
+
+    public static TreeNode insertWithRecursion(TreeNode root, int val) {
+        if(root==null) {
+            return new TreeNode(val);
+        }
+
+        if(val<root.val) {
+            root.left = insertWithRecursion(root.left, val);
+        } else {
+            root.right = insertWithRecursion(root.right, val);
+        }
+
+        return root;
+    }
+
+    public static TreeNode delete(TreeNode root, int val) {
+        TreeNode parent=null, curr=root;
+        while(curr!=null) {
+            if(val<curr.val) {
+                parent=curr;
+                curr=curr.left;
+            }
+            else if(val>curr.val) {
+                parent=curr;
+                curr=curr.right;
+            }
+            else {
+                if(curr.left==null && curr.right==null) {
+                    if(curr==root) {
+                        return null;
+                    }
+
+                    if(val<parent.val) {
+                        parent.left=null;
+                        return root;
+                    } else if(val>parent.val) {
+                        parent.right=null;
+                        return root;
+                    }
+                } else if(curr.left==null && curr.right!=null) {
+                    if(curr==root) {
+                        return curr.right;
+                    }
+
+                    if(val<parent.val) {
+                        parent.left=curr.right;
+                        return root;
+                    } else {
+                        parent.right=curr.right;
+                        return root;
+                    }
+                } else if(curr.left!=null && curr.right==null) {
+                    if(curr==root) {
+                        return curr.left;
+                    }
+
+                    if(val<parent.val) {
+                        parent.left=curr.left;
+                        return root;
+                    } else {
+                        parent.right=curr.left;
+                        return root;
+                    }
+                } else {
+                    TreeNode temp=curr.right, prev=null;
+                    TreeNode left = curr.left;
+
+                    while(temp.left!=null) {
+                        prev=temp;
+                        temp=temp.left;
+                    }
+
+                    temp.left=left;
+                    if(prev!=null) prev.left=temp.right;
+                    if(prev==null) temp.right=curr.right.right;
+                    else temp.right=prev;
+
+                    if(curr==root) {
+                        return temp;
+                    }
+
+                    if(val<parent.val) {
+                        parent.left=temp;
+                        return root;
+                    } else {
+                        parent.right=temp;
+                        return root;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Node not found!");
+        return root;
+    }
+
+    public static void inorder(TreeNode root) {
+        if(root != null) {
+            inorder(root.left);
+            System.out.print(root.val + " ");
+            inorder(root.right);
+        }
+    }
+
+    public static void preorder(TreeNode root) {
+        if(root != null) {
+            System.out.print(root.val + " ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+
+    public static void postorder(TreeNode root) {
+        if(root != null) {
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.val + " ");
+        }
+    }
+}

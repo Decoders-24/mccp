@@ -1,0 +1,215 @@
+Open compiler:
+
+1)
+static int find(int n, int[] A, int[] B) {
+        Arrays.sort(A);
+        Arrays.sort(B);
+        
+        int s=0;
+        for(int i=0; i<n; i++) {
+            s+=Math.abs(A[i]-B[i]);
+        }
+        return s;
+    }
+
+2)
+static int HProd(int n, int[] A) {
+        Arrays.sort(A);
+
+        int x = A[n-1]*A[n-2]*A[n-3];
+        int y = A[0]*A[1]*A[n-1];
+        return x>y?x:y;
+    }
+
+3)
+static int cntTasks(int n, int[] A, int t) {
+        int cnt=0;
+
+        Arrays.sort(A);
+        int i=0;
+        while(t>=A[i]) {
+            cnt++;
+            t-=A[i];
+            i++;
+        }
+        return cnt;
+    }
+
+4)
+static int find(int n, int[] A) {
+        int mid, cnt=0;
+        Arrays.sort(A);
+
+        if(n%2==0) mid = n/2;
+        else mid = n/2;
+
+        for(int i=0; i<n; i++) {
+            cnt+=Math.abs(A[mid]-A[i]);
+        }
+        return cnt;
+    }
+
+5)
+static int find(int n, int[] A) {
+        Arrays.sort(A);
+        int sum=A[0]+A[1];
+        int cost=sum;
+        for(int i=2;i<n;i++){
+            sum+=A[i];
+            cost+=sum;
+        }
+
+        return cost;
+    }
+
+6)
+static int[] find(int n, int[] A) {
+        int L[] = new int[n];
+        int R[] = new int[n];
+        int res[] = new int[n];
+
+        L[0]=1; R[n-1]=1;
+        int i=1, j=1, k=n-2;
+        while(i<n) {
+            L[j]=A[j-1]*L[j-1];
+            R[k]=A[k+1]*R[k+1];
+            j++;
+            k--;
+            i++;
+        }
+
+        for(i=0; i<n; i++) {
+            res[i] = L[i] * R[i];
+        }
+        return res;
+    }
+
+7)
+static int find(int n, int[] A, int[] B) {
+        int needed = 1;
+        Arrays.sort(A);
+        Arrays.sort(B);
+        
+        int i=1, j=0, max_platforms=1;
+        while(i<n && j<n) {
+            if(A[i]>B[j]) {
+                max_platforms--;
+                j++;
+            } else {
+                i++;
+                max_platforms++;
+                needed=max_platforms>needed?max_platforms:needed;
+            }
+        }
+        return needed;
+    }
+
+8)
+static int[] find(int n, int[] A) {
+        int L[] = new int[n];
+        int R[] = new int[n];
+        int res[] = new int[n];
+
+        for(int i=0; i<n; i++) {
+            L[i]=1; R[i]=1;
+        }
+        int i=1, lcnt=1, rcnt=n-2;
+        while(i<n) {
+            if(A[lcnt]>=A[lcnt-1]) {
+                L[lcnt]++;
+            }
+            if(A[rcnt]>=A[rcnt+1]) {
+                R[rcnt]++;
+            }
+            lcnt++;
+            rcnt--;
+            i++;
+        }
+        for(i=0; i<n; i++) {
+            res[i] = L[i]>R[i]?L[i]:R[i];
+        }
+        // System.out.println("L array:");
+        // for(i=0; i<n; i++) {
+        //     System.out.print(L[i]+" ");
+        // }
+        // System.out.println("\nR array:");
+        // for(i=0; i<n; i++) {
+        //     System.out.print(R[i]+" ");
+        // }
+        // System.out.println();
+        return res;
+    }
+
+9)
+static int find(int n, char[] A, int k) {
+        int p[] = new int[n];
+        int t[] = new int[n];
+        int pcnt=0, tcnt=0, caught=0;
+
+        for(int i=0; i<n; i++) {
+            if(A[i]=='P') {
+                p[pcnt]=i;
+                pcnt++;
+            } else {
+                t[tcnt]=i;
+                tcnt++;
+            }
+        }
+        int plen=pcnt,tlen=tcnt;
+        pcnt=0; tcnt=0;
+        // System.out.println(plen+"  "+ tlen);
+        while(pcnt<plen && tcnt<tlen) {
+            if(p[pcnt]+k>=t[tcnt]) {
+                caught++;
+                pcnt++;
+                tcnt++;
+            } else pcnt++;
+        }
+        return caught;
+    }
+
+10)
+static int findProfit(int n, int[] A) {
+        int max=0, profit=0;
+        for(int i=n-1; i>=0; i--) {
+            if(A[i]>max) {
+                max=A[i];
+            }
+            if(profit<max-A[i])
+                profit=max-A[i];
+        }
+        return profit;
+    }
+
+11)
+static int Maximize(int n, int[] A) {
+        int max=0, profit=0;
+        for(int i=n-1; i>=0; i--) {
+            if(A[i]>max) {
+                max=A[i];
+            }
+            profit+=max-A[i];
+        }
+        return profit;
+    }
+
+12)
+static int Maximize(int n, int[] A) {
+        Arrays.sort(A);
+        int sum=0;
+        for(int i=0; i<n; i++) {
+            sum+=i*A[i];
+        }
+        return sum;
+    }
+
+13)
+static boolean find(int n, int[] A) {
+        int last = n-1;
+        for(int i=n-2; i>=0; i--) {
+            if(i+A[i]>=last) {
+                last=i;
+            }
+        }
+        return last<=0?true:false;
+    }

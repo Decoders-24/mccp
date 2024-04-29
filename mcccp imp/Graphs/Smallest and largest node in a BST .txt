@@ -1,0 +1,248 @@
+Smallest and largest node in a BST using recursion:
+static TreeNode minimumNode(TreeNode root) {
+        if(root.left==null) {
+            return root;
+        }
+        return min(root.left);
+    }
+
+    static TreeNode maximumNode(TreeNode root) {
+        if(root.right==null) {
+            return root;
+        }
+        return max(root.right);
+    }
+
+Problems on Graphs:
+
+1) storeAdjMatrixRepr:
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter no.of nodes: ");
+        int n = sc.nextInt();
+
+        int adj[][] = new int[n][n];
+        while(true) {
+            System.out.print("To add edge, enter source vertex and detination vertex(from o to n-1): ");
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj[u][v] = 1;
+
+            System.out.print("Add more edges(1/0)? ");
+            int ch = sc.nextInt();
+            if(ch==0) break;
+        }
+
+        System.out.println("Edges in Graph are:");
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                if(adj[i][j]==1) System.out.println(i + " -> " + j);
+            }
+        }
+    }
+
+2) storeAdjListRepr:
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter no.of nodes: ");
+        int n = sc.nextInt();
+
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
+        while(true) {
+            System.out.print("To add edge, enter source vertex and detination vertex(from o to n-1): ");
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+
+            if(!hm.containsKey(u)) {
+                ArrayList<Integer> lst = new ArrayList<>();
+                lst.add(v);
+                hm.put(u, lst);
+            } else {
+                hm.get(u).add(v);
+            }
+
+            System.out.print("Add more edges(1/0)? ");
+            int ch = sc.nextInt();
+            if(ch==0) break;
+        }
+
+        System.out.println("Edges in Graph are:");
+        for(int i : hm.keySet()) {
+            for(int j : hm.get(i)) {
+                System.out.println(i + " -> " + j);
+            }
+        }
+    }
+
+3) dfsAdjMatrix:
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of nodes: ");
+        int n = sc.nextInt();
+
+        int adj[][] = new int[n][n];
+        while (true) {
+            System.out.print("To add edge, enter source vertex and destination vertex(from 0 to n-1): ");
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj[u][v] = 1;
+
+            System.out.print("Add more edges(1/0)? ");
+            int ch = sc.nextInt();
+            if (ch == 0) 
+                break;
+        }
+        System.out.print("Enter starting vertex: ");
+        int start = sc.nextInt();
+        System.out.print("DFS Traversal: ");
+        dfs(adj, n, start);
+    }
+
+    static void dfs(int[][] adj, int n, int start) {
+        int[] visited = new int[n];
+        Stack<Integer> s = new Stack<>();
+        s.push(start);
+        //System.out.println("Push(" + start + ")");
+
+        while (!s.empty()) {
+            start = s.pop();
+            System.out.print(start + " ");
+            visited[start] = 1;
+
+            for (int i = 0; i < n; i++) {
+                if (adj[start][i] == 1 && visited[i] == 0) {
+                    s.push(i);
+                    //System.out.println("Push(" + i + ")");
+                }
+            }
+            
+            //System.out.println("Pop(" + start + ")");
+        }
+    }
+
+4) dfsAdjMatrixRecursion
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of nodes: ");
+        int n = sc.nextInt();
+
+        int adj[][] = new int[n][n];
+        while (true) {
+            System.out.print("To add edge, enter source vertex and destination vertex(from 0 to n-1): ");
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj[u][v] = 1;
+
+            System.out.print("Add more edges(1/0)? ");
+            int ch = sc.nextInt();
+            if (ch == 0) 
+                break;
+        }
+        System.out.print("Enter starting vertex: ");
+        int start = sc.nextInt();
+        int[] visited = new int[n];
+        System.out.print("DFS Traversal Recursion: ");
+        dfs(adj, n, start, visited);
+    }
+
+    static void dfs(int[][] adj, int n, int curr, int[] visited) {
+        System.out.print(curr + " ");
+        visited[curr] = 1;
+        for (int i = 0; i < n; i++) {
+            if (adj[curr][i] == 1 && visited[i] == 0) {
+                dfs(adj, n, i, visited);
+            }
+        }
+    }
+
+5) dfsAdjList:
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter no.of nodes: ");
+        int n = sc.nextInt();
+
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
+        while(true) {
+            System.out.print("To add edge, enter source vertex and detination vertex(from o to n-1): ");
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+
+            if(!hm.containsKey(u)) {
+                ArrayList<Integer> lst = new ArrayList<>();
+                lst.add(v);
+                hm.put(u, lst);
+            } else {
+                hm.get(u).add(v);
+            }
+
+            System.out.print("Add more edges(1/0)? ");
+            int ch = sc.nextInt();
+            if(ch==0) break;
+        }
+
+        System.out.print("Enter starting vertex: ");
+        int start = sc.nextInt();
+        int[] visited = new int[n];
+        System.out.print("DFS Traversal: ");
+        dfs(hm, start, visited);
+    }
+
+    static void dfs(HashMap<Integer, ArrayList<Integer>> hm, int curr, int[] visited) {
+        Stack<Integer> s = new Stack<>();
+        s.push(curr);
+        visited[curr] = 1;
+
+        while(!s.empty()) {
+            curr = s.pop();
+            System.out.print(curr + " ");
+
+            for(int i : hm.get(curr)) {
+                if(visited[i]==0) {
+                    s.push(i);
+                    visited[i] = 1;
+                }
+            }
+        }
+    }
+
+6) dfsAdjListRecursion:
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter no.of nodes: ");
+        int n = sc.nextInt();
+
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
+        while(true) {
+            System.out.print("To add edge, enter source vertex and detination vertex(from o to n-1): ");
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+
+            if(!hm.containsKey(u)) {
+                ArrayList<Integer> lst = new ArrayList<>();
+                lst.add(v);
+                hm.put(u, lst);
+            } else {
+                hm.get(u).add(v);
+            }
+
+            System.out.print("Add more edges(1/0)? ");
+            int ch = sc.nextInt();
+            if(ch==0) break;
+        }
+
+        System.out.print("Enter starting vertex: ");
+        int start = sc.nextInt();
+        int[] visited = new int[n];
+        System.out.print("DFS Traversal Recursion: ");
+        dfs(hm, start, visited);
+    }
+
+    statiic void dfs(HashMap<Integer, ArrayList<Integer>> hm, int curr, int[] visited) {
+        System.out.print(curr + " ");
+        visited[curr] = 1;
+        for(int i : hm.get(curr)) {
+            if(visited[i]==0) {
+                dfs(hm, i, visited);
+            }
+        }
+    }

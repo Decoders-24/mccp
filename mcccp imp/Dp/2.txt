@@ -1,0 +1,649 @@
+class Solution {
+    static int nthFibonacci(int n){
+        // code here
+        if(n==0)
+        {
+            return 0;
+                }
+                if(n==1)
+                {
+                    return 1;
+                }
+        int a = 0, b = 1, c;
+        for (int i = 2; i <= n; i++) {
+            c = (a + b) % 1000000007;
+            a = b;
+            b = c;
+        }
+
+        return b;
+    }
+}
+
+
+class Solution {
+    public int fib(int n) {
+        if(n==0)
+        {
+            return 0;
+                }
+                if(n==1)
+                {
+                    return 1;
+                }
+                return (fib(n-1)+fib(n-2));
+        
+    }
+}
+
+
+import java.util.* ;
+import java.io.*; 
+public class Solution{
+    public static int fibonacciNumber(int n){
+        // Write your code here.
+        if (n <= 1)    
+           return n;
+        int a=0, b=1, mod=1000000007;
+        for(int i=2; i<=n; i++){
+            int c = a+b;
+            a=b;
+            b=c;
+            if(b>=mod)
+            b=b-mod;
+        }
+        return b;
+        
+    }
+}
+
+
+
+import java.util.*;
+class Codechef {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        long a = 0, b = 1, c=0;
+        int count = 0;
+        while (true) {
+            c = a + b;
+            a = b;
+            b = c;
+            if (c % 2 == 0) {
+                count++;
+            }
+            if (count == N) {
+                System.out.println(c);
+                break;
+            }
+    }
+    }
+}
+
+
+public class Solution {
+    public long solve(long A) {
+        long MOD = 1000000007;
+        long[] dp = new long[(int) (A + 1)]; 
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 1;
+        for (long i = 3; i <= A; i++) {
+            dp[(int) i] = (dp[(int) (i - 1)] + dp[(int) (i - 2)]) % MOD;
+        }
+        return (dp[(int) A] % MOD);
+    }
+}
+
+
+import java.util.*;
+class FibonacciNumber {
+    // Use a map to store previously calculated Fibonacci numbers
+    private Map<Integer, Long> hm = new HashMap<>();
+    // DO NOT read from stdin or write to stdout.
+    // Input is given as the function arguments.
+    // Output is taken as the function return value.
+    public long f(int n) {
+        // Code here
+        if (n == 0 || n == 1) {
+            return n;
+        }
+        if (hm.containsKey(n)) {
+            return hm.get(n);
+        }
+        long result = f(n - 1) + f(n - 2);
+        hm.put(n, result);
+
+        return result;
+    }
+}
+
+
+class Solution {
+    static long fibSum(long n) {
+        // code here
+        long sum = 0; 
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return 1;
+        }
+
+        long a = 0, b = 1, c=0;
+        for (int i = 2; i <= n; i++) {
+            c = (a%1000000007+ b%1000000007);
+            sum = (sum + c);
+            a = b;
+            b = c;
+        }
+
+        return (sum+1)%1000000007;
+    }
+}
+
+
+class Solution {
+    public int nthPoint(int n) {
+        int MOD = 1000000007;
+        int[] dp = new int[n + 3];
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 2;
+
+        for (int i = 3; i <= n; i++) {
+            dp[i] = (dp[i - 1] + dp[i - 2]) % MOD;
+        }
+
+        return dp[n];
+    }
+}
+
+
+class Solution {
+    public int climbStairs(int n) {
+       
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = (dp[i - 1] + dp[i - 2]);
+        }
+
+        return dp[n];
+    }
+}
+
+
+public class Solution {
+    public int climbStairs(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+         for (int i = 2; i <= n; i++) {
+            dp[i] = (dp[i - 1] + dp[i - 2]);
+        }
+
+        return dp[n];
+    }
+}
+
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static long countDistinctWayToClimbStair(long n) {
+		int mod=1000000007;
+        if (n == 1 || n==0) {
+            return 1;
+        }
+        int N=(int)n;
+        int[] dp = new int[N+1];
+        dp[0] = 1;
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1]%mod + dp[i - 2]%mod;
+        }
+
+        return dp[dp.length-1]%mod;
+    }
+}
+
+
+import java.util.*;
+
+public class Solution {
+    public static long nthStair(int n) {
+        long MOD = 10000000007L;
+        long[] dp = new long[n + 4];
+        dp[0] = 1;
+        dp[1] = 1;
+        dp[2] = 2;
+
+        for (int i = 3; i <= n; i++) {
+            dp[i] = (dp[i - 1] % MOD + dp[i - 2] % MOD + dp[i - 3] % MOD) % MOD;
+        }
+
+        return dp[n];
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+
+        for (int i = 0; i < s; i++) {
+            int n = sc.nextInt();
+            System.out.println(nthStair(n));
+        }
+
+        sc.close();
+    }
+}
+
+
+
+class Solution {
+    static Long noOfDays(Long R, Long S, Long Q) {
+        // code here
+        return (Q - S + R - S - 1) / (R - S);
+    }
+
+
+
+class Solution {
+    public int rob(int[] arr) {
+         int n=arr.length;
+        int dp[]=new int[n+1];
+        dp[0]=0;
+        dp[1]=arr[0];
+        for(int i=2;i<=n;i++)
+        {
+            dp[i]=Math.max(dp[i-1],(dp[i-2]+arr[i-1]));
+        }
+        return dp[n];
+    }
+}
+
+
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        } else if (n == 1) {
+            return nums[0];
+        }
+        int[] dp1 = new int[n];
+        dp1[0] = nums[0];
+        dp1[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < n - 1; i++) {
+            dp1[i] = Math.max(dp1[i - 1], dp1[i - 2] + nums[i]);
+        }
+        int[] dp2 = new int[n];
+        dp2[0] = 0;
+        dp2[1] = nums[1];
+        for (int i = 2; i < n; i++) {
+            dp2[i] = Math.max(dp2[i - 1], dp2[i - 2] + nums[i]);
+        }
+        return Math.max(dp1[n - 2], dp2[n - 1]);
+    }
+}
+
+class Solution
+{
+    //Function to find the maximum money the thief can get.
+    public int FindMaxSum(int arr[], int n)
+    {
+        // Your code here
+       int dp[]=new int[n+1];
+        dp[0]=0;
+        dp[1]=arr[0];
+        for(int i=2;i<=n;i++)
+        {
+            dp[i]=Math.max(dp[i-1],(dp[i-2]+arr[i-1]));
+        }
+        return dp[n];
+    }
+}
+
+
+
+class Solution
+{
+    //Function to find the length of longest common subsequence in two strings.
+    static int lcs(int n, int m, String str1, String str2)
+    {
+        // your code here
+        char[] arr1=str1.toCharArray();
+        char[] arr2=str2.toCharArray();
+        int[][] dp=new int[n+1][m+1];
+        for(int i=0;i<=n;i++)
+        {
+            dp[i][0]=0;
+        }
+        for(int i=0;i<=m;i++)
+        {
+            dp[0][i]=0;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(arr1[i-1]==arr2[j-1])
+                {
+                    dp[i][j]=dp[i-1][j-1]+1;
+                }
+                else
+                {
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+            
+        }
+        return dp[n][m];
+    }
+    
+}
+
+
+class Solution {
+    public List<String> all_longest_common_subsequences(String s, String t) {
+        char[] arr1 = s.toCharArray();
+        char[] arr2 = t.toCharArray();
+        int n = arr1.length;
+        int m = arr2.length;
+
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (arr1[i - 1] == arr2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        int len = dp[n][m];
+        Set<String> resultSet = new HashSet<>();
+        AllSubsequences(dp, arr1, arr2, n, m, len, "", resultSet);
+        List<String> result = new ArrayList<>(resultSet);
+
+        Collections.sort(result);
+        return result;
+    }
+    private void AllSubsequences(int[][] dp, char[] arr1, char[] arr2, int i, int j, int len, String res,
+            Set<String> result) {
+        if (len == 0) {
+            result.add(res);
+            return;
+        }
+
+        if (i > 0 && j > 0 && arr1[i - 1] == arr2[j - 1]) {
+            AllSubsequences(dp, arr1, arr2, i - 1, j - 1, len - 1, arr1[i - 1] + res, result);
+        }
+
+        if (i > 0 && dp[i - 1][j] == len) {
+            AllSubsequences(dp, arr1, arr2, i - 1, j, len, res, result);
+        }
+
+        if (j > 0 && dp[i][j - 1] == len) {
+            AllSubsequences(dp, arr1, arr2, i, j - 1, len, res, result);
+        }
+    }
+}
+
+
+
+class Solution {
+    public int longestCommonSubsequence(String str1, String str2) {
+        int n=str1.length();
+        int m=str2.length();
+       char[] arr1=str1.toCharArray();
+        char[] arr2=str2.toCharArray();
+        int[][] dp=new int[n+1][m+1];
+        for(int i=0;i<=n;i++)
+        {
+            dp[i][0]=0;
+        }
+        for(int i=0;i<=m;i++)
+        {
+            dp[0][i]=0;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(arr1[i-1]==arr2[j-1])
+                {
+                    dp[i][j]=dp[i-1][j-1]+1;
+                }
+                else
+                {
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+            
+        }
+        return dp[n][m]; 
+    }
+}
+
+
+
+public class Solution {
+    public int solve(String str1, String str2) {
+        int n=str1.length();
+        int m=str2.length();
+       char[] arr1=str1.toCharArray();
+        char[] arr2=str2.toCharArray();
+        int[][] dp=new int[n+1][m+1];
+        for(int i=0;i<=n;i++)
+        {
+            dp[i][0]=0;
+        }
+        for(int i=0;i<=m;i++)
+        {
+            dp[0][i]=0;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(arr1[i-1]==arr2[j-1])
+                {
+                    dp[i][j]=dp[i-1][j-1]+1;
+                }
+                else
+                {
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+            
+        }
+        return dp[n][m]; 
+        
+    }
+}
+
+
+
+import java.util.* ;
+import java.io.*; 
+public class Solution 
+{
+    public static int getLengthOfLCS(String  str1, String  str2)
+    {
+        // Write your code here.
+        int n=str1.length();
+        int m=str2.length();
+       char[] arr1=str1.toCharArray();
+        char[] arr2=str2.toCharArray();
+        int[][] dp=new int[n+1][m+1];
+        for(int i=0;i<=n;i++)
+        {
+            dp[i][0]=0;
+        }
+        for(int i=0;i<=m;i++)
+        {
+            dp[0][i]=0;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(arr1[i-1]==arr2[j-1])
+                {
+                    dp[i][j]=dp[i-1][j-1]+1;
+                }
+                else
+                {
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+            
+        }
+        return dp[n][m]; 
+    }
+}
+
+
+import java.util.Scanner;
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner scanner = new Scanner(System.in);
+        String str1 = scanner.nextLine();
+        String str2 = scanner.nextLine();
+        int n = str1.length();
+        int m = str2.length();
+        char[] arr1 = str1.toCharArray();
+        char[] arr2 = str2.toCharArray();
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (arr1[i - 1] == arr2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        System.out.println(dp[n][m]);
+    }
+}
+
+
+
+class Solution {
+    public int minCoins(int coins[], int n, int v) {
+        int[] dp = new int[v + 1];
+        for (int i = 1; i <= v; i++) {
+            dp[i] = Integer.MAX_VALUE - 1;
+        }
+
+        for (int i = 1; i <= v; i++) {
+            for (int j = 0; j < n; j++) {
+                if (coins[j] <= i) {
+                    int k = dp[i - coins[j]];
+                    if (k != Integer.MAX_VALUE - 1) {
+                        dp[i] = Math.min(dp[i], 1 + k);
+                    }
+                }
+            }
+        }
+        if(dp[v] == Integer.MAX_VALUE - 1)
+            return -1;
+        return dp[v];
+    }
+}
+
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+}
+
+
+public class Solution {
+    public int uniquePaths(int m, int n) {
+         int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+}
+
+
+class Solution {
+    public int minPathSum(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+        dp[0][0] = grid[0][0];
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = dp[i - 1][0] + grid[i][0];
+        }
+        for (int j = 1; j < n; j++) {
+            dp[0][j] = dp[0][j - 1] + grid[0][j];
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = grid[i][j] + Math.min(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+}
+
+
+
+public class Solution 
+{
+	public static int minCostPath(int[][] c, int m, int n) 
+    {
+		//Your code goes here
+		int[][] dp=new int[m][n];
+      dp[0][0]=c[0][0];
+      for(int i=1;i<m;i++)
+      {
+          dp[i][0]=dp[i-1][0]+c[i][0];
+      }
+      for(int i=1;i<n;i++)
+      {
+          dp[0][i]=dp[0][i-1]+c[0][i];;
+      }
+      for(int i=1;i<m;i++)
+      {
+          for(int j=1;j<n;j++)
+          {
+              dp[i][j]+=c[i][j]+Math.min(dp[i-1][j],Math.min(dp[i][j-1],dp[i-1][j-1]));;
+          }
+      }
+       return dp[m-1][n-1];
+	}
+
+}
